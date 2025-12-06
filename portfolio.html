@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>token_portfolio_final_realfinal_final</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                background: #ffffff;
+                font-family: "Comic Sans MS", cursive, sans-serif;
+                overflow-x: hidden;
+                cursor:
+                    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><circle cx="10" cy="10" r="8" fill="none" stroke="black" stroke-width="2"/></svg>'),
+                    auto;
+            }
+
+            @keyframes wobble {
+                0%,
+                100% {
+                    transform: rotate(-1deg) translate(0px, 0px);
+                }
+                25% {
+                    transform: rotate(1deg) translate(1px, -1px);
+                }
+                50% {
+                    transform: rotate(-0.5deg) translate(-1px, 1px);
+                }
+                75% {
+                    transform: rotate(0.5deg) translate(1px, 1px);
+                }
+            }
+
+            @keyframes float {
+                0%,
+                100% {
+                    transform: translateY(0px) rotate(0deg);
+                }
+                33% {
+                    transform: translateY(-15px) rotate(2deg);
+                }
+                66% {
+                    transform: translateY(8px) rotate(-1deg);
+                }
+            }
+
+            @keyframes wiggle {
+                0%,
+                100% {
+                    transform: translateX(0px) rotate(0deg);
+                }
+                10% {
+                    transform: translateX(-3px) rotate(-2deg);
+                }
+                20% {
+                    transform: translateX(3px) rotate(2deg);
+                }
+                30% {
+                    transform: translateX(-2px) rotate(-1deg);
+                }
+                40% {
+                    transform: translateX(2px) rotate(1deg);
+                }
+                50% {
+                    transform: translateX(-1px) rotate(-0.5deg);
+                }
+                60% {
+                    transform: translateX(1px) rotate(0.5deg);
+                }
+            }
+
+            @keyframes shakeLogo {
+                0%,
+                100% {
+                    transform: rotate(0deg) scale(1);
+                }
+                10% {
+                    transform: rotate(-2deg) scale(1.02);
+                }
+                20% {
+                    transform: rotate(2deg) scale(0.98);
+                }
+                30% {
+                    transform: rotate(-1deg) scale(1.01);
+                }
+                40% {
+                    transform: rotate(1deg) scale(0.99);
+                }
+                50% {
+                    transform: rotate(-0.5deg) scale(1);
+                }
+            }
+
+            @keyframes slideAway {
+                0% {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateX(300px);
+                    opacity: 0;
+                }
+            }
+
+            @keyframes comeBack {
+                0% {
+                    transform: translateX(-300px);
+                    opacity: 0;
+                }
+                100% {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes pulse {
+                0%,
+                100% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.05);
+                }
+            }
+
+            @keyframes spin {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 40px 20px;
+            }
+
+            .logo {
+                text-align: center;
+                margin-bottom: 10px;
+                animation:
+                    shakeLogo 3s ease-in-out infinite,
+                    float 6s ease-in-out infinite;
+            }
+
+            .logo-text {
+                font-size: 72px;
+                font-weight: bold;
+                display: inline-block;
+                position: relative;
+                color: #000;
+                letter-spacing: -5px;
+                transform: rotate(-3deg);
+                filter: url(#squiggle);
+            }
+
+            .logo-text::before {
+                content: "";
+                position: absolute;
+                top: -10px;
+                left: -15px;
+                right: -15px;
+                bottom: -10px;
+                border: 5px solid #000;
+                border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+                animation: wobble 4s ease-in-out infinite;
+            }
+
+            .subtitle {
+                text-align: center;
+                font-size: 24px;
+                margin-bottom: 60px;
+                transform: rotate(1deg);
+                animation: wiggle 2s ease-in-out infinite;
+                letter-spacing: 2px;
+            }
+
+            .tagline {
+                text-align: center;
+                font-size: 32px;
+                margin: 80px 0;
+                font-style: italic;
+                transform: rotate(-2deg);
+                animation: pulse 3s ease-in-out infinite;
+                line-height: 1.6;
+                text-decoration: underline wavy;
+            }
+
+            .portfolio-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 40px;
+                margin: 60px 0;
+                padding: 0 20px;
+            }
+
+            .project-card {
+                position: relative;
+                padding: 40px 20px;
+                border: 4px solid #000;
+                border-radius: 20% 30% 25% 35% / 30% 40% 35% 25%;
+                background: #fff;
+                transform: rotate(-1deg);
+                transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                animation: float 8s ease-in-out infinite;
+                cursor: pointer;
+            }
+
+            .project-card:nth-child(1) {
+                animation-delay: 0s;
+                border-color: #ff6b6b;
+            }
+
+            .project-card:nth-child(2) {
+                animation-delay: 1s;
+                border-color: #4ecdc4;
+                transform: rotate(2deg);
+            }
+
+            .project-card:nth-child(3) {
+                animation-delay: 2s;
+                border-color: #ffe66d;
+            }
+
+            .project-card:hover {
+                transform: rotate(0deg) scale(1.1) translateY(-20px);
+                box-shadow: 15px 15px 0px rgba(0, 0, 0, 0.1);
+                animation-play-state: paused;
+            }
+
+            .project-card h3 {
+                font-size: 24px;
+                margin-bottom: 15px;
+                text-decoration: underline;
+                animation: wobble 2s ease-in-out infinite;
+            }
+
+            .project-card p {
+                font-size: 16px;
+                line-height: 1.6;
+                font-style: italic;
+            }
+
+            .skills-section {
+                margin: 80px 0;
+                padding: 40px;
+                border: 3px dashed #000;
+                transform: rotate(1deg);
+                animation: wobble 6s ease-in-out infinite;
+            }
+
+            .skills-section h2 {
+                text-align: center;
+                font-size: 48px;
+                margin-bottom: 40px;
+                text-decoration: underline;
+                animation: wiggle 3s ease-in-out infinite;
+            }
+
+            .skill-bar {
+                margin: 30px 0;
+                position: relative;
+            }
+
+            .skill-name {
+                font-size: 20px;
+                margin-bottom: 10px;
+                font-weight: bold;
+            }
+
+            .skill-track {
+                height: 40px;
+                background: #f0f0f0;
+                border: 3px solid #000;
+                border-radius: 50% 20% 40% 30% / 30% 50% 20% 40%;
+                overflow: visible;
+                position: relative;
+            }
+
+            .skill-fill {
+                height: 100%;
+                background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #ffe66d);
+                border-radius: 50% 20% 40% 30% / 30% 50% 20% 40%;
+                transition: width 2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                padding-right: 10px;
+                font-weight: bold;
+                animation: pulse 2s ease-in-out infinite;
+                position: relative;
+            }
+
+            .skill-fill::after {
+                content: "⭐";
+                position: absolute;
+                right: -20px;
+                animation: spin 3s linear infinite;
+            }
+
+            .button-container {
+                text-align: center;
+                margin: 60px 0;
+            }
+
+            .runaway-button {
+                padding: 20px 40px;
+                font-size: 24px;
+                border: 4px solid #000;
+                background: #fff;
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+                cursor: pointer;
+                font-family: "Comic Sans MS", cursive;
+                font-weight: bold;
+                transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                position: relative;
+                animation: wobble 2s ease-in-out infinite;
+            }
+
+            .runaway-button.running-away {
+                animation: slideAway 0.5s ease-out forwards;
+            }
+
+            .runaway-button.coming-back {
+                animation: comeBack 0.5s ease-out forwards;
+            }
+
+            .footer {
+                margin-top: 100px;
+                padding: 40px;
+                text-align: center;
+                border-top: 3px dotted #000;
+                transform: rotate(-1deg);
+            }
+
+            .footer p {
+                font-size: 12px;
+                margin: 10px 0;
+                opacity: 0.7;
+                animation: wiggle 4s ease-in-out infinite;
+            }
+
+            .footer p:nth-child(2) {
+                animation-delay: 0.5s;
+            }
+
+            .squiggle-filter {
+                position: absolute;
+                width: 0;
+                height: 0;
+            }
+
+            @media (max-width: 768px) {
+                .logo-text {
+                    font-size: 48px;
+                }
+
+                .tagline {
+                    font-size: 24px;
+                }
+
+                .portfolio-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            .rotating-decoration {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                font-size: 48px;
+                animation: spin 10s linear infinite;
+                opacity: 0.3;
+                pointer-events: none;
+            }
+
+            .noise {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                opacity: 0.03;
+                z-index: 1000;
+                background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' /%3E%3C/svg%3E");
+            }
+        </style>
+    </head>
+    <body>
+        <div class="noise"></div>
+        <div class="rotating-decoration">✱</div>
+
+        <svg class="squiggle-filter">
+            <filter id="squiggle">
+                <feTurbulence
+                    baseFrequency="0.02"
+                    numOctaves="3"
+                    result="noise"
+                    seed="2"
+                />
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" />
+            </filter>
+        </svg>
+
+        <div class="container">
+            <div class="logo">
+                <div class="logo-text">TOKEN</div>
+            </div>
+            <div class="subtitle">@token, a wanna be Designer</div>
+
+            <div class="tagline">
+                "Design is not my passion,<br />but it is my destiny."
+            </div>
+
+            <div class="portfolio-grid">
+                <div class="project-card">
+                    <h3>Project 1:</h3>
+                    <p>OMC registration ui/ux</p>
+                    <p style="margin-top: 15px; font-size: 14px">
+                        <a
+                            href="http://pgg0c0kwcckcg44g8ccc4sws.185.197.194.242.sslip.io/v2"
+                            >(link)</a
+                        >
+                    </p>
+                </div>
+
+                <div class="project-card">
+                    <h3>Project 2:</h3>
+                    <p>OMC linktree (barely)</p>
+                    <p style="margin-top: 15px; font-size: 14px">
+                        <a href="https://link.openmindsclub.net/">(link)</a>
+                    </p>
+                </div>
+
+                <div class="project-card">
+                    <h3>Project 3:</h3>
+                    <p>Watched a figma youtube tutorial : )</p>
+                    <p style="margin-top: 15px; font-size: 14px">
+                        (Did not finish yet)
+                    </p>
+                </div>
+            </div>
+
+            <div class="skills-section">
+                <h2>My Skills Chart</h2>
+
+                <div class="skill-bar">
+                    <div class="skill-name">Photoshop</div>
+                    <div class="skill-track">
+                        <div
+                            class="skill-fill"
+                            data-width="2"
+                            style="width: 0%"
+                        >
+                            2%
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-bar">
+                    <div class="skill-name">Figma</div>
+                    <div class="skill-track">
+                        <div
+                            class="skill-fill"
+                            data-width="5"
+                            style="width: 0%"
+                        >
+                            5%
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-bar">
+                    <div class="skill-name">Paint</div>
+                    <div class="skill-track">
+                        <div
+                            class="skill-fill"
+                            data-width="200"
+                            style="width: 0%"
+                        >
+                            200%
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-bar">
+                    <div class="skill-name">Freestyling</div>
+                    <div class="skill-track">
+                        <div
+                            class="skill-fill"
+                            data-width="100"
+                            style="width: 0%"
+                        >
+                            ∞
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-container">
+                <button class="runaway-button" id="contactBtn">
+                    Contact Me (maybe)
+                </button>
+            </div>
+
+            <div class="footer">
+                <p>Made with &#9829; and no talent.</p>
+                <p>v27_final_realfinal_final.html</p>
+            </div>
+        </div>
+
+        <script>
+            // animate skill bars on load
+            window.addEventListener("load", () => {
+                setTimeout(() => {
+                    const skillFills = document.querySelectorAll(".skill-fill");
+                    skillFills.forEach((fill, index) => {
+                        setTimeout(() => {
+                            const width = parseInt(
+                                fill.getAttribute("data-width"),
+                            );
+                            const displayWidth = Math.min(width, 100);
+                            fill.style.width = displayWidth + "%";
+
+                            // special animation for Paint skill
+                            if (width > 100) {
+                                setTimeout(() => {
+                                    fill.style.overflow = "visible";
+                                    fill.style.width = width + "%";
+                                }, 2000);
+                            }
+                        }, index * 300);
+                    });
+                }, 500);
+            });
+
+            // runaway button
+            const contactBtn = document.getElementById("contactBtn");
+            let isRunningAway = false;
+
+            contactBtn.addEventListener("mouseenter", () => {
+                if (!isRunningAway) {
+                    isRunningAway = true;
+                    contactBtn.classList.add("running-away");
+
+                    setTimeout(() => {
+                        contactBtn.classList.remove("running-away");
+                        contactBtn.classList.add("coming-back");
+
+                        setTimeout(() => {
+                            contactBtn.classList.remove("coming-back");
+                            isRunningAway = false;
+                        }, 500);
+                    }, 500);
+                }
+            });
+
+            contactBtn.addEventListener("click", () => {
+                alert("My email is: aymen.ghemam@protonmail.com");
+            });
+
+            // randm floating elements
+            function createFloatingElement() {
+                const symbols = ["✱", "◆", "◇", "○", "●", "△", "▽"];
+                const element = document.createElement("div");
+                element.textContent =
+                    symbols[Math.floor(Math.random() * symbols.length)];
+                element.style.position = "fixed";
+                element.style.left = Math.random() * 100 + "%";
+                element.style.top = Math.random() * 100 + "%";
+                element.style.fontSize = Math.random() * 30 + 20 + "px";
+                element.style.opacity = "0.1";
+                element.style.pointerEvents = "none";
+                element.style.zIndex = "-1";
+                element.style.animation = `float ${Math.random() * 10 + 5}s ease-in-out infinite`;
+                element.style.animationDelay = Math.random() * 5 + "s";
+                document.body.appendChild(element);
+            }
+
+            // floating decorations
+            for (let i = 0; i < 15; i++) {
+                createFloatingElement();
+            }
+
+            // Konami code
+            let konamiCode = [];
+            const konamiSequence = [
+                "ArrowUp",
+                "ArrowUp",
+                "ArrowDown",
+                "ArrowDown",
+                "ArrowLeft",
+                "ArrowRight",
+                "ArrowLeft",
+                "ArrowRight",
+                "b",
+                "a",
+            ];
+
+            document.addEventListener("keydown", (e) => {
+                konamiCode.push(e.key);
+                if (konamiCode.length > konamiSequence.length) {
+                    konamiCode.shift();
+                }
+
+                if (
+                    JSON.stringify(konamiCode) ===
+                    JSON.stringify(konamiSequence)
+                ) {
+                    document.body.style.transform = "rotate(180deg)";
+                    document.body.style.transition =
+                        "transform 2s cubic-bezier(0.68, -0.55, 0.265, 1.55)";
+
+                    setTimeout(() => {
+                        document.body.style.transform = "rotate(0deg)";
+                    }, 3000);
+                }
+            });
+
+            // effect on mouse move
+            document.addEventListener("mousemove", (e) => {
+                const cards = document.querySelectorAll(".project-card");
+                const mouseX = e.clientX / window.innerWidth - 0.5;
+                const mouseY = e.clientY / window.innerHeight - 0.5;
+
+                cards.forEach((card, index) => {
+                    const depth = (index + 1) * 0.5;
+                    const moveX = mouseX * depth * 20;
+                    const moveY = mouseY * depth * 20;
+
+                    card.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${index % 2 === 0 ? -1 : 2}deg)`;
+                });
+            });
+
+            // wiggle
+            setInterval(() => {
+                const subtitle = document.querySelector(".subtitle");
+                const randomRotation = (Math.random() - 0.5) * 4;
+                subtitle.style.transform = `rotate(${randomRotation}deg)`;
+            }, 3000);
+
+            console.log(
+                "%cThanks for checking the console!",
+                "font-size: 20px; color: #ff6b6b; font-weight: bold;",
+            );
+            console.log(
+                "%cYes, I know the design is terrible.",
+                "font-size: 14px; color: #4ecdc4;",
+            );
+            console.log(
+                "%cBut hey, at least the animations are smooth!",
+                "font-size: 14px; color: #ffe66d;",
+            );
+        </script>
+    </body>
+</html>
